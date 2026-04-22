@@ -19,9 +19,7 @@ body {
 }
 
 #card-container {
-  display: flex;
-  justify-content: center;
-  margin: 20px;
+  padding: 16px;
 }
 
 .card {
@@ -67,4 +65,86 @@ button {
   font-size: 22px;
   cursor: pointer;
   margin: 5px;
+}
+
+.division-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.card {
+  width: 100%;
+}
+
+.controls {
+  padding: 16px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+}
+
+#sort-select {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.add-fighter-form {
+  padding: 16px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.add-fighter-form h3 {
+  width: 100%;
+  margin: 0 0 8px 0;
+}
+
+.add-fighter-form input, .add-fighter-form select {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 160px;
+}
+
+.add-fighter-form button {
+  font-size: 14px;
+  height: 36px;
+  padding: 0 16px;
+}
+
+.champion-card {
+  border: 2px solid gold;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #fff9e6 40%,
+    #ffd700 80%,
+    #fff9e6 60%,
+    #ffffff 100%
+  );
+  background-size: 200% 200%;
+  animation: shine 3s infinite linear;
+}
+
+@keyframes shine {
+  0% { background-position: 200% 200%; }
+  100% { background-position: -200% -200%; }
+}
+
+#search-input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 220px;
 }
