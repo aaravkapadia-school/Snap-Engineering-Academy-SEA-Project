@@ -80,9 +80,9 @@ function showCards(fighters, unfiltered) {
   const cardContainer = document.getElementById("card-container");
   cardContainer.innerHTML = "";
   const templateCard = document.querySelector(".card");
-  if (unfiltered) {
+  if(unfiltered) {
     const divisions = ["Flyweight", "Bantamweight", "Featherweight", "Lightweight", "Welterweight", "Middleweight", "Light Heavyweight", "Heavyweight"];
-    for (let i = 0; i < divisions.length; i++) {
+    for(let i = 0; i < divisions.length; i++) {
       let header = document.createElement("h2");
       header.textContent = divisions[i];
       header.className = "division-header";
@@ -91,14 +91,14 @@ function showCards(fighters, unfiltered) {
       row.className = "division-row";
       cardContainer.appendChild(row);
       let divisionFighters = [];
-      for (let j = 0; j < fighters.length; j++) {
-        if (fighters[j].division === divisions[i]) {
+      for(let j = 0; j < fighters.length; j++) {
+        if(fighters[j].division === divisions[i]) {
           divisionFighters.push(fighters[j]);
         }
       }
       divisionFighters.sort((a, b) => {
-        if (a.ranking === "C") return -1;
-        if (b.ranking === "C") return 1;
+        if(a.ranking === "C") return -1;
+        if(b.ranking === "C") return 1;
         return Number(a.ranking) - Number(b.ranking);
       });
       for (let k = 0; k < divisionFighters.length; k++) {
@@ -111,7 +111,7 @@ function showCards(fighters, unfiltered) {
     const row = document.createElement("div");
     row.className = "division-row";
     cardContainer.appendChild(row);
-    for (let j = 0; j < fighters.length; j++) {
+    for(let j = 0; j < fighters.length; j++) {
       const nextCard = templateCard.cloneNode(true);
       editCardContent(nextCard, fighters[j]);
       row.appendChild(nextCard);
@@ -124,18 +124,18 @@ function showCards(fighters, unfiltered) {
  */
 function filter() {
   const filterBy = document.getElementById("sort-select").value;
-  if (filterBy === "default") {
+  if(filterBy === "default") {
     showCards(ufcFighters, true);
     return;  
   }
   let sorted = [...ufcFighters]; 
-  if (filterBy === "wins-desc") {
+  if (filterBy === "wins") {
     sorted.sort((a, b) => Number(b.wins) - Number(a.wins));
-  } else if (filterBy === "losses-desc") {
+  } else if (filterBy === "losses") {
     sorted.sort((a, b) => Number(b.losses) - Number(a.losses));
-  } else if (filterBy === "knockouts-desc") {
+  } else if (filterBy === "knockouts") {
     sorted.sort((a, b) => Number(b.knockouts) - Number(a.knockouts));
-  } else if (filterBy === "submissions-desc") {
+  } else if (filterBy === "submissions") {
     sorted.sort((a, b) => Number(b.submissions) - Number(a.submissions));
   } else if (filterBy === "ranking") {
     sorted.sort((a, b) => {
@@ -163,31 +163,31 @@ function addFighter() {
   const submissions = document.getElementById("input-submissions").value;
   const ranking = document.getElementById("input-ranking").value;
   const posterUrl = document.getElementById("input-poster").value;
-  if (name === "") {
+  if(name === "") {
     alert("Please enter a fighter name");
     return;
   }
-  if (wins === "" || losses === "" || draws === "" || knockouts === "" || submissions === "") {
+  if(wins === "" || losses === "" || draws === "" || knockouts === "" || submissions === "") {
     alert("Please fill in all record fields (wins, losses, draws, KOs, submissions)");
     return;
   }
-  if (Number(wins) < 0 || Number(losses) < 0 || Number(draws) < 0) {
+  if(Number(wins) < 0 || Number(losses) < 0 || Number(draws) < 0) {
     alert("Wins, losses, and draws cannot be negative");
     return;
   }
-  if (ranking === "") {
+  if(ranking === "") {
     alert("Please enter a ranking (1-15 or C)");
     return;
   }
-  if (ranking !== "C" && (isNaN(Number(ranking)) || Number(ranking) < 1 || Number(ranking) > 15)) {
+  if(ranking !== "C" && (isNaN(Number(ranking)) || Number(ranking) < 1 || Number(ranking) > 15)) {
     alert("Ranking must be a number between 1-15 or C for champion");
     return;
   }
-  if (Number(knockouts) > Number(wins)) {
+  if(Number(knockouts) > Number(wins)) {
     alert("Knockouts cannot be greater total wins");
     return;
   }
-  if (Number(submissions) > Number(wins)) {
+  if(Number(submissions) > Number(wins)) {
     alert("Submissions cannot be greater total wins");
     return;
   } 
@@ -206,22 +206,15 @@ function addFighter() {
     ranking: ranking,
     posterUrl: posterUrl
   };
-  if (newFighter.ranking !== "C") {
+  if(newFighter.ranking !== "C") {
     for (let i = 0; i < ufcFighters.length; i++) {
-      if (
-        ufcFighters[i].division === newFighter.division &&
-        ufcFighters[i].ranking !== "C" &&
-        Number(ufcFighters[i].ranking) >= Number(newFighter.ranking)
-      ) {
+      if(ufcFighters[i].division === newFighter.division && ufcFighters[i].ranking !== "C" && Number(ufcFighters[i].ranking) >= Number(newFighter.ranking)) {
         ufcFighters[i].ranking = String(Number(ufcFighters[i].ranking) + 1);
       }
     }
   } else if (newFighter.ranking === "C") {
-    for (let i = 0; i < ufcFighters.length; i++) {
-      if (
-        ufcFighters[i].division === newFighter.division &&
-        ufcFighters[i].ranking === "C"
-      ) {
+    for(let i = 0; i < ufcFighters.length; i++) {
+      if(ufcFighters[i].division === newFighter.division && ufcFighters[i].ranking === "C") {
         ufcFighters[i].ranking = "1";
         for (let j = 0; j < ufcFighters.length; j++) {
           if (
@@ -246,12 +239,12 @@ function addFighter() {
  */
 function searchFighters() {
   const query = document.getElementById("search-input").value.toLowerCase();
-  if (query === "") {
+  if(query === "") {
     showCards(ufcFighters, true);
     return;
   }
   let filtered = [];
-  for (let i = 0; i < ufcFighters.length; i++) {
+  for(let i = 0; i < ufcFighters.length; i++) {
     const nameMatch = ufcFighters[i].name.toLowerCase().includes(query);
     const nicknameMatch = ufcFighters[i].nickname.toLowerCase().includes(query);
     const divisionMatch = ufcFighters[i].division.toLowerCase().includes(query);
@@ -278,7 +271,7 @@ function clearSearch() {
  */
 function editCardContent(card, fighter) {
   card.style.display = "block";
-  if (fighter.ranking === "C") {
+  if(fighter.ranking === "C") {
     card.classList.add("champion-card");
   } else {
     card.classList.remove("champion-card");
